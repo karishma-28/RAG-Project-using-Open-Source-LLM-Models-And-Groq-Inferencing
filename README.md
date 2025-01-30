@@ -13,13 +13,21 @@
 
 I just built an end-to-end retrieval system using LangChain, and let me walk you through how I did it! 🚀
 
-Step 1: Loading the Data 📥
-First things first—I needed some data. So, I grabbed the WebBaseLoader from langchain_community.document_loaders and loaded content straight from LangChain’s official docs.
+# 🚀 LangChain RAG Pipeline with FAISS & ChatGroq  
 
+This project demonstrates how to build a **retrieval-augmented generation (RAG) pipeline** using LangChain, FAISS, and ChatGroq.  
+
+## 🛠 Steps Followed  
+
+### 1️⃣ Load Data from Web 📥  
+Used `WebBaseLoader` from `langchain_community` to load data from [LangChain’s official docs](https://docs.smith.langchain.com/).  
+
+```python
 from langchain_community.document_loaders import WebBaseLoader
 
 loader = WebBaseLoader("https://docs.smith.langchain.com/")
 docs = loader.load()
+
 
 Step 2: Chunking the Data 📦
 Since LLMs work best with smaller chunks, I used RecursiveCharacterTextSplitter to break the text into chunks of 1000 characters.
