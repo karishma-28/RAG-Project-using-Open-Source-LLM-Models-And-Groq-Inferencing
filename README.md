@@ -3,7 +3,7 @@
 # End To End Advanced RAG Project using Open Source LLM Models And Groq Inferencing
  - In this project I have built an end to end advanced RAG project using open source llm model, Mistral using groq inferencing engine.
 
-![Groq for RAG Image](./images/chatbot-image.png)
+![Groq for RAG Image]((https://github.com/user-attachments/assets/eab8237b-3cee-407a-a842-009dfe8e79a4))
 
 ## DEMO
  - You can try the project live [here](https://8510-01hwj8ynshjz7spkr595x77ec2.cloudspaces.litng.ai/)
