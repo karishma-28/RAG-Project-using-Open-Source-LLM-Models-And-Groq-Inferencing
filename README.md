@@ -17,58 +17,17 @@ I just built an end-to-end retrieval system using LangChain, and let me walk you
 
 This project demonstrates how to build a **retrieval-augmented generation (RAG) pipeline** using LangChain, FAISS, and ChatGroq.  
 
-## 🛠 Steps Followed  
+## Description
+- This project showcase the implementation of an advanced RAG system that uses groq as an llm to retrieve information about langsmith.
 
-### 1️⃣ Load Data from Web 📥  
-Used `WebBaseLoader` from `langchain_community` to load data from [LangChain’s official docs](https://docs.smith.langchain.com/).  
+Steps I followed:
+1. I have used the `WebBaseLoader` from the `langchain_community` document loader to load the data from the `https://docs.smith.langchain.com/` webpage.
+2. transformed each text into a chunk of `1000` using the `RecursiveCharacterTextSplitter` imported from the `langchain.text_splitter`
+3. stored the vector embeddings which were made using the `HuggingFaceInstructEmbeddings` using the `FAISS` vector store.
+4. setup the llm `ChatGroq` with the model name `mixtral-8x7b-32768`
+5. Setup `ChatPromptTemplate`
+6. finally created the `document_chain` and `retrieval_chain` for chaining llm to prompt and `retriever` to `document_chain` respectively
 
-```python
-from langchain_community.document_loaders import WebBaseLoader
-
-loader = WebBaseLoader("https://docs.smith.langchain.com/")
-docs = loader.load()
-
-
-Step 2: Chunking the Data 📦
-Since LLMs work best with smaller chunks, I used RecursiveCharacterTextSplitter to break the text into chunks of 1000 characters.
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-chunks = text_splitter.split_documents(docs)
-
-Step 3: Storing Vector Embeddings 🔍
-To make my system searchable, I converted the text chunks into embeddings using HuggingFaceInstructEmbeddings and stored them in a FAISS vector database.
-
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceInstructEmbeddings
-
-embeddings = HuggingFaceInstructEmbeddings()
-vector_db = FAISS.from_documents(chunks, embeddings)
-retriever = vector_db.as_retriever()
-
-
-Step 4: Setting Up the LLM 🤖
-For the language model, I chose ChatGroq with the powerful Mixtral-8x7B-32768 model.
-
-from langchain.chat_models import ChatGroq
-
-llm = ChatGroq(model_name="mixtral-8x7b-32768")
-
-
-Step 5: Crafting the Prompt 🎭
-A good LLM setup needs a great prompt, so I used ChatPromptTemplate to guide the conversation.
-
-from langchain.prompts import ChatPromptTemplate
-
-prompt = ChatPromptTemplate.from_template("Answer the following question: {query}")
-
-
-Step 6: Chaining Everything Together 🔗
-Finally, I combined everything using RetrievalQA to connect my retriever to the document chain.
-
-from langchain.chains import RetrievalQA
-
-qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever, chain_type="stuff")
 
 And that's it! 🎉 Now, I can ask questions, and my system will fetch the most relevant information from the LangChain docs using retrieval-augmented generation (RAG).
 
@@ -102,5 +61,3 @@ And that's it! 🎉 Now, I can ask questions, and my system will fetch the most 
 ## Contact
  - LinkedIn: [Karishma Shaik](https:(https://www.linkedin.com/in/shaik-karishma2004/))
  - Gmail: karishmashaik2802@gmail.com
-
-
